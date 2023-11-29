@@ -1,4 +1,3 @@
-# ---------------READ ME------------------
 
 # TurtleBot3_Walker
 Simple algorithm to implement obstacle avoiding algorithm and move TurtleBot3 in a pre built world using ROS2 Humble and Gazebo.
