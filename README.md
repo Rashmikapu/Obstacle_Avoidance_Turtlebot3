@@ -41,11 +41,11 @@ rocker --version
 rocker alpine echo "hello-world"
 ```
 
-## 2.) Install and modify ROS2 Humble Docker image
+# 2.) Install and modify ROS2 Humble Docker image
 
-# terminal 1:
+Terminal 1:
 
-# download ROS 2 image
+## download ROS 2 image
 ```
 docker pull osrf/ros:humble-desktop-full
 
@@ -63,7 +63,7 @@ apt -y install ros-humble-turtlebot4-desktop
 apt clean all
 ```
 
-# terminal 2:
+Terminal 2:
 Open another terminal and run the command below to save a snapshot of the container.
 
 ```

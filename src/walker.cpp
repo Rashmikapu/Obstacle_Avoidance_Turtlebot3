@@ -1,4 +1,15 @@
-
+/**
+ * @file walker.cpp
+ * @author Rashmi Kapu (rashmik@umd.edu)
+ * @brief This node implements a class which creates a subscriber to the Lidar on Turtlebot4 burger
+ and publisher to turtlebot3 burger. Based on the Lidar point cloud data, the node publishes 
+ velocities and orientations to the turtlebot accordingly, in order to avoid obstacles. 
+ * @version 0.1
+ * @date 2023-11-29
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/laser_scan.hpp>
 #include <geometry_msgs/msg/twist.hpp>
@@ -7,7 +18,11 @@
 using std::placeholders::_1;
 using namespace std::chrono_literals;
 
-
+/**
+ * @brief Class AvoidObstacles initialises publisher and subscriber nodes and
+ binds lidar_callback to the subscriber node
+ * 
+ */
 class AvoidObstacles : public rclcpp::Node {
  public:
  
@@ -20,7 +35,12 @@ class AvoidObstacles : public rclcpp::Node {
         }
 
  private:
- 
+ /**
+  * @brief Reads lidar data and implements obstacle avoidance. Calls function
+  publish_velocity to publish to cmd_vel topic.
+  * 
+  * @param msg 
+  */
     void lidar_callback(const sensor_msgs::msg::LaserScan& msg) {
         
         if (msg.header.stamp.sec == 0) {
@@ -43,6 +63,13 @@ class AvoidObstacles : public rclcpp::Node {
         }
     }
     
+    /**
+     * @brief Publishes linear and angular velocities on cmd_vel topic to
+     control the motion of turtlebot3 burger.
+     * 
+     * @param x_vel 
+     * @param z_vel 
+     */
     void publish_velocity(auto x_vel, auto z_vel) {
         auto vel = geometry_msgs::msg::Twist();
         vel.linear.x = x_vel;
@@ -50,12 +77,18 @@ class AvoidObstacles : public rclcpp::Node {
         velocity_pub->publish(vel);
     }
 
-    
+    // Create pointers to subscriber and publisher
     rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr lidar_sub;
     rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr velocity_pub;
 };
 
-
+/**
+ * @brief Creates a spin to call AvoidObstacles class to implement walker node.
+ * 
+ * @param argc 
+ * @param argv 
+ * @return int 
+ */
 int main(int argc, char **argv) {
     rclcpp::init(argc, argv);
     rclcpp::spin(std::make_shared<AvoidObstacles>());
