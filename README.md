@@ -172,7 +172,7 @@ ros2 bag play walker_bag
 
 ## Output Video :
 
-![Alt Text](result.gif)
+![Alt Text](result_fast.gif)
 
 ## Issues encountered
 
