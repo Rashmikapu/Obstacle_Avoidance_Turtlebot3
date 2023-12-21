@@ -170,6 +170,10 @@ In terminal 2, move to the workspace and run (first source ros2 humble) :
 ros2 bag play walker_bag
 ```
 
+## Output Video :
+
+![Alt Text]{result.gif}
+
 ## Issues encountered
 
 - The required dependencies should be installed prior to run this package. 
