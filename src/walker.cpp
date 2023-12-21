@@ -50,13 +50,13 @@ class AvoidObstacles : public rclcpp::Node {
     auto scan_data = msg.ranges;
 
     // Setting field of view = -50 to +50 degrees
-    int min_angle = 310;
-    int max_angle = 50;
-    auto threshold = 0.5;
+    int min_angle = 300;
+    int max_angle = 60;
+    auto threshold = 0.8;
     for (int i = min_angle; i < min_angle + max_angle; i++) {
       if (scan_data[i % 360] < threshold) {
         // turn
-        publish_velocity(0.0, 0.1);
+        publish_velocity(0.0, 3.14/2);
       } else {
         // move forward
         publish_velocity(0.075, 0.0);
